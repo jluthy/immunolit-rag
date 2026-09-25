@@ -1,0 +1,24 @@
+paths:
+  raw_dir: data/raw
+  chunks_dir: data/chunks
+  lancedb_dir: data/lancedb
+  graph_dir: data/graph
+  active_table_marker: data/lancedb/active_table.json
+
+model:
+  llm: qwen3:8b
+  embedding: nomic-embed-text
+  ollama_url: http://localhost:11434
+
+rag:
+  chunk_target_words: 250
+  chunk_overlap_words: 30
+  retrieval_k: 5
+  db_table_name: immunolit_abstracts
+
+app:
+  system_prompt: |
+    You are a research assistant that answers questions strictly from the
+    provided immunology literature context. If the context does not contain
+    the answer, say so explicitly rather than guessing. Always cite the
+    source paper(s) you used by their PubMed ID.
