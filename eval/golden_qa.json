@@ -7,6 +7,6 @@
   {
     "query": "How did the study differentiate MDSC subsets in septic patients using flow cytometry?",
     "reference_answer": "The study used a semi-automated workflow combining machine learning tools (FlowSOM, UMAP, ClusterExplorer, Hyperfinder) to identify M-MDSC, PMN-MDSC, and e-MDSC subsets from multi-parameter flow cytometry data, comparing this to manual gating.",
-    "source_pmids": ["36416867"]
+    "source_pmids": ["36466851"]
   }
 ]
