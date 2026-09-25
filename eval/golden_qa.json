@@ -1,0 +1,12 @@
+[
+  {
+    "query": "What role do iNKT cells play in liver injury during hepacivirus infection?",
+    "reference_answer": "iNKT cells skewed toward type 2 immunity (producing IL-4 and IL-13) limit liver injury during acute hepacivirus infection by regulating the effector functions of virus-specific T cells, though they are dispensable for viral clearance itself.",
+    "source_pmids": ["36159876"]
+  },
+  {
+    "query": "How did the study differentiate MDSC subsets in septic patients using flow cytometry?",
+    "reference_answer": "The study used a semi-automated workflow combining machine learning tools (FlowSOM, UMAP, ClusterExplorer, Hyperfinder) to identify M-MDSC, PMN-MDSC, and e-MDSC subsets from multi-parameter flow cytometry data, comparing this to manual gating.",
+    "source_pmids": ["36416867"]
+  }
+]
