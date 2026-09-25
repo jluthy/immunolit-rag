@@ -1,0 +1,10 @@
+.immunolit-chat { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; max-width: 640px; font-family: system-ui, sans-serif; }
+.immunolit-chat__messages { max-height: 320px; overflow-y: auto; margin-bottom: 0.75rem; }
+.immunolit-chat__message { margin-bottom: 0.5rem; padding: 0.5rem; border-radius: 6px; }
+.immunolit-chat__message--user { background: #eef; text-align: right; }
+.immunolit-chat__message--bot { background: #f4f4f4; }
+.immunolit-chat__citations { font-size: 0.8rem; color: #666; margin-top: 0.25rem; }
+.immunolit-chat__input-row { display: flex; gap: 0.5rem; }
+.immunolit-chat__input-row input { flex: 1; padding: 0.5rem; }
+.immunolit-cluster-view { max-width: 640px; margin-top: 1rem; }
+.immunolit-cluster-view__point--highlighted { stroke: #ff5722; stroke-width: 3px; }
