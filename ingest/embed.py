@@ -17,11 +17,23 @@ def load_config(path: str = "config.yml") -> dict:
 
 
 def embed_text(text: str, ollama_url: str, model: str) -> list[float]:
-    resp = requests.post(
-        f"{ollama_url}/api/embeddings",
-        json={"model": model, "prompt": text},
-        timeout=30,
-    )
+    """Some chunks, despite being word-count-bounded, tokenize past the
+    embedding model's context window (dense medical terminology tokenizes
+    into more subwords per word than typical English). On that specific
+    Ollama error, retry with progressively truncated text rather than
+    losing the whole ingest run over one chunk."""
+    prompt = text
+    for attempt in range(3):
+        resp = requests.post(
+            f"{ollama_url}/api/embeddings",
+            json={"model": model, "prompt": prompt},
+            timeout=30,
+        )
+        if resp.status_code == 500 and "context length" in resp.text and attempt < 2:
+            prompt = prompt[: int(len(prompt) * 0.6)]
+            continue
+        resp.raise_for_status()
+        return resp.json()["embedding"]
     resp.raise_for_status()
     return resp.json()["embedding"]
 
