@@ -13,6 +13,10 @@ def get_context(query: str, cfg: dict, k: int) -> list[dict]:
         cfg["paths"]["lancedb_dir"], cfg["paths"]["active_table_marker"], cfg["rag"]["db_table_name"]
     )
     db = lancedb.connect(cfg["paths"]["lancedb_dir"])
+    if table_name not in db.table_names():
+        raise RuntimeError(
+            f"Corpus not ingested yet — table '{table_name}' does not exist. Run: python -m ingest.cli all"
+        )
     table = db.open_table(table_name)
     results = table.search(vector).limit(k).to_list()
     return [
@@ -62,6 +66,6 @@ def chat(query: str, cfg: dict) -> dict:
 
     cited_pmids = set(re.findall(r"PMID\s*(\d+)", answer))
     retrieved_pmids = {c["pmid"] for c in chunks}
-    citations = sorted(cited_pmids & retrieved_pmids) or sorted(retrieved_pmids)
+    citations = sorted(cited_pmids) if cited_pmids else sorted(retrieved_pmids)
 
     return {"answer": answer, "citations": citations, "retrieved": chunks}

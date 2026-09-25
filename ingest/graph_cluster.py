@@ -101,8 +101,10 @@ def build_graph_summary(chunks_path: str, lancedb_dir: str, table_name: str, out
 
     Path(out_dir).mkdir(parents=True, exist_ok=True)
     out_path = os.path.join(out_dir, "graph_summary.json")
-    with open(out_path, "w") as f:
+    tmp_path = f"{out_path}.tmp"
+    with open(tmp_path, "w") as f:
         json.dump(summary, f, indent=2)
+    os.replace(tmp_path, out_path)
     return out_path
 
 

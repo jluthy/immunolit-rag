@@ -51,8 +51,10 @@ def build_table(chunks_path: str, lancedb_dir: str, table_name: str, ollama_url:
 
 def publish_active_table(marker_path: str, table_name: str) -> None:
     Path(os.path.dirname(marker_path)).mkdir(parents=True, exist_ok=True)
-    with open(marker_path, "w") as f:
+    tmp_path = f"{marker_path}.tmp"
+    with open(tmp_path, "w") as f:
         json.dump({"active_table": table_name}, f)
+    os.replace(tmp_path, marker_path)
 
 
 def resolve_active_table(lancedb_dir: str, marker_path: str, default_table: str) -> str:

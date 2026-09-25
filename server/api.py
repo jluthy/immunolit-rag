@@ -2,6 +2,7 @@
 import json
 import os
 
+import requests
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -13,7 +14,11 @@ app = FastAPI(title="immunolit-rag API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://jluthy.github.io"],
+    allow_origins=[
+        "https://jluthy.github.io",
+        "http://localhost:8080",
+        "http://127.0.0.1:8080",
+    ],
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
@@ -38,12 +43,22 @@ def health():
 @app.post("/api/search")
 def search(req: SearchRequest):
     k = req.k or CFG["rag"]["retrieval_k"]
-    return {"results": get_context(req.query, CFG, k)}
+    try:
+        return {"results": get_context(req.query, CFG, k)}
+    except RuntimeError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    except (requests.exceptions.ConnectionError, requests.exceptions.RequestException) as e:
+        raise HTTPException(status_code=503, detail=str(e))
 
 
 @app.post("/api/chat")
 def chat_endpoint(req: ChatRequest):
-    result = rag_chat(req.query, CFG)
+    try:
+        result = rag_chat(req.query, CFG)
+    except RuntimeError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    except (requests.exceptions.ConnectionError, requests.exceptions.RequestException) as e:
+        raise HTTPException(status_code=503, detail=str(e))
     return {"answer": result["answer"], "citations": result["citations"]}
 
 

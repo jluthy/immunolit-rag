@@ -3,6 +3,14 @@
   let plotDivId = null;
   let layoutData = null;
 
+  const CLUSTER_PALETTE = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"];
+  const NOISE_COLOR = "#ccc";
+
+  function clusterColor(cluster) {
+    if (cluster === -1 || cluster === undefined || cluster === null) return NOISE_COLOR;
+    return CLUSTER_PALETTE[cluster % CLUSTER_PALETTE.length];
+  }
+
   window.__immunolitHighlightPmids = function (pmids) {
     if (!plotDivId || !layoutData) return;
     const pmidSet = new Set(pmids);
@@ -31,7 +39,7 @@
         text: pmids.map((p) => `${layoutData[p].title} (PMID ${p})`),
         mode: "markers",
         type: "scatter",
-        marker: { size: 6, color: "#888" },
+        marker: { size: 6, color: pmids.map((p) => clusterColor(layoutData[p].cluster)) },
       };
       Plotly.newPlot(containerId, [trace], {
         title: "Corpus map (colored points = papers cited in your last answer)",
