@@ -8,3 +8,6 @@
 .immunolit-chat__input-row input { flex: 1; padding: 0.5rem; }
 .immunolit-cluster-view { max-width: 640px; margin-top: 1rem; }
 .immunolit-cluster-view__point--highlighted { stroke: #ff5722; stroke-width: 3px; }
+.immunolit-cluster-view__legend { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; font-size: 0.85rem; }
+.immunolit-cluster-view__legend-item { display: flex; align-items: center; gap: 0.35rem; }
+.immunolit-cluster-view__swatch { width: 12px; height: 12px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
