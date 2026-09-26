@@ -97,7 +97,13 @@
     Plotly.restyle(plotDivId, { "marker.color": [colors], "marker.size": [sizes] });
   };
 
-  window.initImmunolitClusterView = async function (containerId, apiBaseUrl) {
+  window.initImmunolitClusterView = async function (containerId, apiBaseUrl, themeColors) {
+    const theme = themeColors || {};
+    const plotBg = theme.plotBg || "#ffffff";
+    const paperBg = theme.paperBg || "#ffffff";
+    const fontColor = theme.fontColor || "#333333";
+    const gridColor = theme.gridColor || "#e5e5e5";
+
     const root = document.getElementById(containerId);
     root.className = "immunolit-cluster-view";
     root.innerHTML = "";
@@ -135,8 +141,13 @@
         marker: { size: 6, color: pmids.map((p) => clusterColor(layoutData[p].cluster)) },
       };
       Plotly.newPlot(plotEl.id, [trace], {
-        title: "Corpus map — colored by topic cluster (highlighted after a chat answer)",
+        title: { text: "Corpus map — colored by topic cluster (highlighted after a chat answer)", font: { color: fontColor } },
         height: 400,
+        paper_bgcolor: paperBg,
+        plot_bgcolor: plotBg,
+        font: { color: fontColor },
+        xaxis: { gridcolor: gridColor, zerolinecolor: gridColor },
+        yaxis: { gridcolor: gridColor, zerolinecolor: gridColor },
         hoverlabel: { align: "left", font: { size: 11 } },
         margin: { l: 40, r: 40, t: 40, b: 40 },
       });

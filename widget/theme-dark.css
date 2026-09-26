@@ -1,0 +1,39 @@
+/* Dark-theme override for embedding the widget in jluthy.github.io.
+   Assumes the host page defines --surface, --surface2, --border, --accent,
+   --text, --text-muted, --mono, --body as CSS custom properties on :root
+   (as jluthy.github.io's own stylesheet already does) — this file only
+   references them, it never redefines them, so it's meaningless loaded
+   standalone (e.g. from demo.html) and is only meant for that one host. */
+
+.immunolit-embed-dark .immunolit-chat {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--body);
+}
+
+.immunolit-embed-dark .immunolit-chat__message--user {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--text);
+}
+
+.immunolit-embed-dark .immunolit-chat__message--bot {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.immunolit-embed-dark .immunolit-chat__citations {
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+.immunolit-embed-dark .immunolit-chat__input-row input {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.immunolit-embed-dark .immunolit-cluster-view__legend {
+  color: var(--text);
+  font-family: var(--body);
+}

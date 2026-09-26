@@ -2,7 +2,7 @@
 
 RAG + concept-graph search over open immunology literature. Ask a question, get a grounded, cited answer — and see how the underlying papers cluster.
 
-**Live demo:** embedded on [jluthy.github.io](https://jluthy.github.io)
+**Live demo:** embedded on [jluthy.github.io](https://jluthy.github.io) (Interactive Demo section, "Immunology Corpus (Live)" tab)
 
 ## Why RAG + graph, not just RAG
 
@@ -39,13 +39,21 @@ Copy `widget/chat-widget.js`, `widget/cluster-view.js`, and `widget/widget.css` 
 
 ```html
 <link rel="stylesheet" href="widget.css">
-<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
 <script src="chat-widget.js"></script>
 <script src="cluster-view.js"></script>
 <script>
   window.initImmunolitChat('chat-container-id', 'https://your-backend-url');
   window.initImmunolitClusterView('cluster-container-id', 'https://your-backend-url');
 </script>
+```
+
+To match a dark-themed host page, also include `widget/theme-dark.css` (references the host page's own CSS custom properties — see the file's header comment for the expected variable names) and add the `immunolit-embed-dark` class to a wrapping element around both widget containers. Pass a `themeColors` object as the 3rd argument to `initImmunolitClusterView` to theme the Plotly chart itself (CSS alone can't reach into a canvas/SVG chart):
+
+```js
+window.initImmunolitClusterView('cluster-container-id', 'https://your-backend-url', {
+  plotBg: '#0b1520', paperBg: '#0b1520', fontColor: '#e8f4f8', gridColor: '#1a2e42'
+});
 ```
 
 ## Running locally
